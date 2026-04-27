@@ -10,3 +10,11 @@ le soluzioni che mi sembrano più fattibili sono le seguenti
 Inrealtà dopo diverse ricerche ho capito che 6LoCAN non ha un implementazioen stabile quindi la soluzione più fattbile risulta essere lavorare con ethernet Single Pair Ethernet (SPE) 
 questo è un chip che converte SPE ovvero ethernet 10BASE-T1S
 https://www.microchip.com/en-us/product/lan8650
+
+
+allora adesso definiamo il problema e definiamo le possibilin soluzioni
+- il problema è il seguente io voglio usare matter per parlare sulle schede cabalte. questo è il requisito. il problema è che io NON posso modificare il cablaggio esistente e il calbaggio è quello di schede connesso su RS485. quidni doppino differenziale intrecciato. ora con questi limiti quali sono le possibili soluzioni?
+1) ethernet SPE. perchè questa opzione è interessante? l'idea è questa è stato introddo un protocollo ethernt su doppino intrecciato proprio per risolvere il problema di parlare IP su doppiono incorciato, quidni se io usassi ethernt matter non avrebbe bisogno di adattamenti perchè matter di base supporta ethernet, wifi e thread. quindi se usassi semplicemente SPE il probelma sarebbe risolto alla radice, ma usare SPE non è gratis, perchè SDK di esp nativamente supporta solo standard Ethernet IEEE 802.3 (frame Ethernet, ARP, IP, TCP/UDP/ICMP via lwIP stack, mentre non suporta il SPE (IEEE 802.3cg, 10BASE-T1L/S) usa PHY specifici (es. DP83TD510E), non integrati nei driver ESP-IDF. 
+
+API Ethernet completa: https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_eth.html
+Esempio basic Ethernet: https://github.com/espressif/esp-idf/tree/master/examples/ethernet/basic
